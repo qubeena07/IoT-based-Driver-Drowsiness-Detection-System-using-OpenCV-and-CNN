@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../ML-drowsiness"
+		},
+		{
+			"path": "../driver-drowsiness-detection-Project"
+		}
+	],
+	"settings": {}
+}
