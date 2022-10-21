@@ -39,19 +39,28 @@ model = Sequential([
 #choose the best features via pooling
     
 #randomly turn neurons on and off to improve convergence
-    Dropout(0.25),
+    # Dropout(0.25),
 #flatten since too many dimensions, we only want a classification output
     Flatten(),
 #fully connected to get all relevant data
     Dense(128, activation='relu'),
 #one more dropout for convergence' sake :) 
-    Dropout(0.5),
+    # Dropout(0.25),
 #output a softmax to squash the matrix into output probabilities
     Dense(2, activation='softmax')
 ])
 
 model.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])
 
-model.fit_generator(train_batch, validation_data=valid_batch,epochs=15,steps_per_epoch=SPE ,validation_steps=VS)
+history = model.fit(train_batch, validation_data=valid_batch,epochs=15,steps_per_epoch=SPE ,validation_steps=VS)
 
-model.save('models/cnnCat2.h5', overwrite=True)
+plt.figure()
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title("Model loss")
+plt.ylabel("Loss (MAE)")
+plt.xlabel("Epoch")
+plt.legend(["Train", "Test"])
+plt.show()
+
+model.save('models/saved_model.h5', overwrite=True)

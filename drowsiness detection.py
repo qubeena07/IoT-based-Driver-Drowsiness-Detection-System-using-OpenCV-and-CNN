@@ -17,7 +17,7 @@ reye = cv2.CascadeClassifier('haarcascade_righteye_2splits.xml')
 
 lbl=['Close','Open']
 
-model = load_model('models/cnnCat2.h5')
+model = load_model('models/saved_model.h5')
 path = os.getcwd()
 cap = cv2.VideoCapture(0)
 font = cv2.FONT_HERSHEY_COMPLEX_SMALL
@@ -68,7 +68,7 @@ while(True):
         l_eye= l_eye/255
         l_eye=l_eye.reshape(24,24,-1)
         l_eye = np.expand_dims(l_eye,axis=0)
-        rpred = np.argmax(model.predict(l_eye),axis=1)
+        lpred = np.argmax(model.predict(l_eye),axis=1)
         if(lpred[0]==1):
             lbl='Open'   
         if(lpred[0]==0):
@@ -86,10 +86,10 @@ while(True):
         
     if(score<0):
         score=0   
-    cv2.putText(frame,'Score:'+str(score),(100,height-20), font, 1,(255,255,255),1,cv2.LINE_AA)
+    cv2.putText(frame,'Level:'+str(score),(100,height-20), font, 1,(255,255,255),1,cv2.LINE_AA)
     if(score>15):
         #person is feeling sleepy so we beep the alarm
-        cv2.imwrite(os.path.join(path,'image.jpg'),frame)
+        #cv2.imwrite(os.path.join(path,'image.jpg'),frame)
         try:
             sound.play()
             
