@@ -51,7 +51,6 @@ while(True):
         r_eye=  r_eye.reshape(24,24,-1)
         r_eye = np.expand_dims(r_eye,axis=0)
         rpred = np.argmax(model.predict(r_eye),axis=1)
-        print (rpred)
         if(rpred[0]==1):
             lbl='Open' 
         if(rpred[0]==0):
@@ -67,14 +66,11 @@ while(True):
         l_eye=l_eye.reshape(24,24,-1)
         l_eye = np.expand_dims(l_eye,axis=0)
         lpred = np.argmax(model.predict(l_eye),axis=1)
-        print (lpred)
         if(lpred[0]==1):
             lbl='Open'   
         if(lpred[0]==0):
             lbl='Closed'
         break
-    print(rpred)
-    print(lpred)
     if(rpred[0]==0 and lpred[0]==0):
         score=score+1
         cv2.putText(frame,"Closed",(10,height-20), font, 1,(255,255,255),1,cv2.LINE_AA)
